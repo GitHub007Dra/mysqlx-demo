@@ -1,0 +1,23 @@
+# docker-compose.yaml
+# 同样遵循严格的缩进
+version: '3.1'
+
+# services 定义容器列表
+services:
+  database:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - /tmp/mysql:/tmp/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+      MYSQL_USER: user_sqlx
+      MYSQL_PASSWORD: password_sqlx
+      MYSQL_DATABASE: db_sqlx
+
+  mysqlx-demo:
+    build: ./mysqlx-demo
+    depends_on:
+      - database
